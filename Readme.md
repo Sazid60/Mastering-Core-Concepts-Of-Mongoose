@@ -1,0 +1,73 @@
+# Mastering-The-Core-Concepts-Of-Mongoose
+
+In this module, we’ll dive deep into Mongoose, one of the most powerful and widely-used Object Data Modeling (ODM) libraries for MongoDB in the Node.js ecosystem.
+
+If you're working with MongoDB, Mongoose makes your life easier by offering a schema-based solution to model your application data with built-in type checking, validation, and a rich set of features for querying and transforming data.
+
+Throughout this module, you'll:
+
+Understand what Mongoose is and why it’s essential for MongoDB projects.
+Set up Mongoose in a real-world Note-taking App project.
+Create schemas and models, define required fields and types.
+Perform core CRUD operations: Create, Read, Update, and Delete notes.
+Explore schema options like timestamps and versionKey.
+Learn how to structure your project professionally using models, routes, services, and controllers.
+Integrate TypeScript with Mongoose for type safety and scalability.
+Build a complete User model with interfaces and CRUD functionalities.
+
+By the end of this module, you’ll not only master Mongoose’s core features but also build a solid foundation for building scalable, maintainable, and type-safe MongoDB applications.
+
+Let’s get started on the path to becoming a MongoDB + Mongoose pro!
+
+## 17-1 What is Mongoose and Why Use It with MongoDB
+
+[Mongoose-Blog](https://www.freecodecamp.org/news/introduction-to-mongoose-for-mongodb-d2a7aa593c57/)
+
+- Mongodb Is a Unstructured Database. There is problem with the mongodb database like- suppose we have products data. some how some users data is pushed inside product data mongodb wont mind. This will be total mess.
+- Here come Mongoose With help. Mongoose Creates a Layer Over the Mongodb and it prevents wrong data to be pushed. Like Products data collection will not allow to push any other type data. Mongoose will validate.
+
+![alt text](image.png)
+
+- Mongoose is an Object Data Modeling (ODM) library for MongoDB and Node.js. It manages relationships between data, provides schema validation, and is used to translate between objects in code and the representation of those objects in MongoDB.
+
+- We can store some unstructured data in mongodb. If there exists different structured data in one collection we can not work. For this reason we will use mongoose. Its like it will check and allow to enter if its valid data. It will not allow to keep the unstructured data according to our modeling. Mongoose will work lie abstraction here.
+
+- Sent data -> Compares with he modeling by mapping -> If valid It will allow to keep data by using mongodb driver
+
+- Here we will not directly use mongodb functionalities. We will use Mongoose Functionalities which will give us super power to follow a model(blue print) and gives us some facilities like validation and others.
+
+- Mongoose will connect with Mongodb Using Mongodb Driver.
+
+- MongoDB is a schema-less NoSQL document database. It means you can store JSON documents in it, and the structure of these documents can vary as it is not enforced like SQL databases. This is one of the advantages of using NoSQL as it speeds up application development and reduces the complexity of deployments.
+
+##### SQL Has by default validation but mongodb do not have. Here Mongoose helps to validate.
+
+##### Mongoose is Giving a vibe of SQL to the NoSQL database Mongodb.
+
+#### Mongodb Vs Mongoose Queries
+
+| **Operation**           | **MongoDB Native** | **Mongoose**                                                |
+| ----------------------- | ------------------ | ----------------------------------------------------------- |
+| Find all documents      | `find()`           | `Model.find()`                                              |
+| Find one document       | `findOne()`        | `Model.findOne()`                                           |
+| Count documents         | `count()`          | `Model.countDocuments()` / `Model.estimatedDocumentCount()` |
+| Update by ID            | `update()`         | `Model.findByIdAndUpdate()`                                 |
+| Delete by ID            | -                  | `Model.findByIdAndDelete()`                                 |
+| Create document         | -                  | `Model.create()`                                            |
+| Find by ID              | -                  | `Model.findById()`                                          |
+| Delete one by condition | -                  | `Model.findOneAndDelete()`                                  |
+| Replace document        | `replaceOne()`     | `Model.replaceOne()`                                        |
+| Update multiple docs    | `updateMany()`     | `Model.updateMany()`                                        |
+| Update one document     | `updateOne()`      | `Model.updateOne()`                                         |
+
+#### Why Learn Mongoose?
+
+- Simplifies MongoDB operations with built-in schema validation.
+- Reduces boilerplate code for database interactions.
+- Supports middleware for pre/post operations.
+- Well-suited for Node.js applications.
+- Schema Definition
+- Model Creation
+- Queries
+
+[Mongoose-Docs-2](https://www.geeksforgeeks.org/node-js/mongoose-tutorial/)
