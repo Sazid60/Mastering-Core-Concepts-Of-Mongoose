@@ -1,0 +1,32 @@
+{
+  "name": "mastering-the-core-concepts-of-mongoose",
+  "version": "1.0.0",
+  "description": "In this module, we’ll dive deep into Mongoose, one of the most powerful and widely-used Object Data Modeling (ODM) libraries for MongoDB in the Node.js ecosystem.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sazid60/Mastering-Core-Concepts-Of-Mongoose.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Sazid60/Mastering-Core-Concepts-Of-Mongoose/issues"
+  },
+  "homepage": "https://github.com/Sazid60/Mastering-Core-Concepts-Of-Mongoose#readme",
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "mongodb": "^6.17.0",
+    "mongoose": "^8.15.2"
+  }
+}
