@@ -40,9 +40,9 @@ Let’s get started on the path to becoming a MongoDB + Mongoose pro!
 
 - MongoDB is a schema-less NoSQL document database. It means you can store JSON documents in it, and the structure of these documents can vary as it is not enforced like SQL databases. This is one of the advantages of using NoSQL as it speeds up application development and reduces the complexity of deployments.
 
-##### SQL Has by default validation but mongodb do not have. Here Mongoose helps to validate.
+##### SQL Has by default validation but mongodb do not have. Here Mongoose helps to validate
 
-##### Mongoose is Giving a vibe of SQL to the NoSQL database Mongodb.
+##### Mongoose is Giving a vibe of SQL to the NoSQL database Mongodb
 
 #### Mongodb Vs Mongoose Queries
 
@@ -148,4 +148,44 @@ This will directly run the server on typescript. no need to transpile to js anym
 
 ```
 npm run dev
+```
+
+#### App.ts
+
+```js
+import express, { Application, NextFunction, Request, Response } from "express";
+const app: Application = express();
+app.get("/", (req: Request, res: Response) => {
+  res.send("Welcome To Todo App");
+});
+export default app;
+
+```
+
+#### Server.ts
+
+```js
+import { Server } from "http";
+import app from "./app";
+import mongoose from "mongoose";
+
+let server: Server;
+
+const PORT = 5000;
+
+async function main() {
+  try {
+    await mongoose.connect(
+      "mongodb+srv://sazid-mongo:sazid-mongo@cluster0.cjbmdks.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+    );
+    console.log("Connected To Mongodb Using Mongoose!");
+    server = app.listen(PORT, () => {
+      console.log(`APP IS LISTENING ON PORT ${PORT}`);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+main();
 ```
