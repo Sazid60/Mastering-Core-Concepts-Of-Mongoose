@@ -176,7 +176,7 @@ const PORT = 5000;
 async function main() {
   try {
     await mongoose.connect(
-      "mongodb+srv://sazid-mongo:sazid-mongo@cluster0.cjbmdks.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+      "mongodb+srv://<username>:<password>@cluster0.cjbmdks.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
     );
     console.log("Connected To Mongodb Using Mongoose!");
     server = app.listen(PORT, () => {
@@ -188,4 +188,61 @@ async function main() {
 }
 
 main();
+```
+
+## 17-3 Creating Your First Mongoose Schema and Model
+
+#### Schema
+
+- While Mongo is schema-less, SQL defines a schema via the table definition. A Mongoose schema is a document data structure (or shape of the document) that is enforced via the application layer.
+
+#### SchemaTypes
+- While Mongoose schemas define the overall structure or shape of a document, SchemaTypes define the expected data type for individual fields (String, Number, Boolean, and so on).
+
+- You can also pass in useful options like required to make a field non-optional, default to set a default value for the field, and many more.
+
+#### Models
+- Models are higher-order constructors that take a schema and create an instance of a document equivalent to records in a relational database.
+- Using the Schema/Blueprint The Model (Builder) will prepare a document. If any element is missing the model will not build the document. 
+- Previously we were used to create document in mongodb directly. But new on we will use Model and model will look at schema and will prepare a document. 
+
+```js
+import express, { Application, NextFunction, Request, Response } from "express";
+import { model, Schema } from "mongoose";
+
+const app: Application = express();
+
+// 1. create schema
+const noteSchema = new Schema({
+  title: String,
+  content: String,
+});
+
+// 2. Create Model
+const Note = model("Note", noteSchema);
+
+// 3. Insert data using the model
+app.post("/create-note", async (req: Request, res: Response) => {
+  // res.send("Welcome To Todo App");
+  const myNote = new Note({
+    title: "Mongoose",
+    content: "I am Learning Mongoose",
+    // any unnecessary fields rather than the schema will not be posted and the types will be strictly followed. 
+  });
+
+  await myNote.save();
+
+  res.status(201).json({
+    success: true,
+    message: "Note Created Successfully !",
+    note: myNote,
+  });
+  
+});
+app.get("/", (req: Request, res: Response) => {
+  res.send("Welcome To Todo App");
+});
+export default app;
+
+
 ```
