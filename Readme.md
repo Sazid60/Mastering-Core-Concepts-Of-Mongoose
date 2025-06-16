@@ -159,7 +159,6 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Welcome To Todo App");
 });
 export default app;
-
 ```
 
 #### Server.ts
@@ -197,14 +196,16 @@ main();
 - While Mongo is schema-less, SQL defines a schema via the table definition. A Mongoose schema is a document data structure (or shape of the document) that is enforced via the application layer.
 
 #### SchemaTypes
+
 - While Mongoose schemas define the overall structure or shape of a document, SchemaTypes define the expected data type for individual fields (String, Number, Boolean, and so on).
 
 - You can also pass in useful options like required to make a field non-optional, default to set a default value for the field, and many more.
 
 #### Models
+
 - Models are higher-order constructors that take a schema and create an instance of a document equivalent to records in a relational database.
-- Using the Schema/Blueprint The Model (Builder) will prepare a document. If any element is missing the model will not build the document. 
-- Previously we were used to create document in mongodb directly. But new on we will use Model and model will look at schema and will prepare a document. 
+- Using the Schema/Blueprint The Model (Builder) will prepare a document. If any element is missing the model will not build the document.
+- Previously we were used to create document in mongodb directly. But new on we will use Model and model will look at schema and will prepare a document.
 
 ```js
 import express, { Application, NextFunction, Request, Response } from "express";
@@ -227,7 +228,7 @@ app.post("/create-note", async (req: Request, res: Response) => {
   const myNote = new Note({
     title: "Mongoose",
     content: "I am Learning Mongoose",
-    // any unnecessary fields rather than the schema will not be posted and the types will be strictly followed. 
+    // any unnecessary fields rather than the schema will not be posted and the types will be strictly followed.
   });
 
   await myNote.save();
@@ -237,7 +238,6 @@ app.post("/create-note", async (req: Request, res: Response) => {
     message: "Note Created Successfully !",
     note: myNote,
   });
-  
 });
 app.get("/", (req: Request, res: Response) => {
   res.send("Welcome To Todo App");
@@ -249,9 +249,10 @@ export default app;
 
 [Schema Types](https://mongoosejs.com/docs/guide.html)
 
-#### Different Style of Defining Schema types 
+#### Different Style of Defining Schema types
+
 ```js
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const blogSchema = new Schema({
@@ -263,30 +264,32 @@ const blogSchema = new Schema({
   hidden: Boolean,
   meta: {
     votes: Number,
-    favs: Number
-  }
+    favs: Number,
+  },
 });
-
 ```
-
 
 #### Enum Types in Schema
 
 ```js
 const enum = {
-  values: ['opening', 'open', 'closing', 'closed'],
-  message: 'enum validator failed for path `{PATH}` with value `{VALUE}`'
-}
+  values: ["opening", "open", "closing", "closed"],
+  message: "enum validator failed for path `{PATH}` with value `{VALUE}`",
+};
 ```
-or 
-```js 
+
+or
+
+```js
 const category = {
-  type: String, 
+  type: String,
   enum : ["A", "B", "C"]
   default : "A"
 }
 ```
-#### Implementing Schema Types In Our Project 
+
+#### Implementing Schema Types In Our Project
+
 ```js
 import express, { Application, NextFunction, Request, Response } from "express";
 import { model, Schema } from "mongoose";
@@ -320,9 +323,9 @@ app.post("/create-note", async (req: Request, res: Response) => {
   // res.send("Welcome To Todo App");
   const myNote = new Note({
     title: "Node",
-    // tags: {
-    //   label: "database",
-    // },
+    tags: {
+      label: "database",
+    },
   });
 
   await myNote.save();
@@ -337,4 +340,68 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Welcome To Todo App");
 });
 export default app;
+```
+
+## 17-5 Create and Save a Note, Get All and Single Notes
+
+#### Insert a note
+
+```js
+app.post("/notes/create-note", async (req: Request, res: Response) => {
+  const body = req.body;
+  const note = await Note.create(body);
+
+  res.status(201).json({
+    success: true,
+    message: "Note Created Successfully !",
+    note: note,
+  });
+});
+```
+
+#### Get All Notes
+
+```js
+app.post("/notes/create-note", async (req: Request, res: Response) => {
+  const body = req.body;
+  const note = await Note.create(body);
+
+  res.status(201).json({
+    success: true,
+    message: "Note Created Successfully !",
+    note: note,
+  });
+});
+```
+
+#### Get a Single Note
+
+- using Mongodb Id and findById. This will be only Mongodb Id Field
+
+```js
+const noteId = req.params.noteId;
+const note = await Note.findById(noteId);
+```
+
+- Using FindOne. This can be any field
+
+```js
+const noteId = req.params.noteId;
+const note = await Note.findOne({ _id: noteId });
+```
+
+- Final Code
+
+```js
+app.get("/notes/:noteId", async (req: Request, res: Response) => {
+  const noteId = req.params.noteId;
+  const note = await Note.findById(noteId);
+  // const note = await Note.findOne({ _id: noteId });
+
+  res.status(201).json({
+    success: true,
+    message: "Note Retrieved Successfully !",
+    note: note,
+  });
+});
 ```
