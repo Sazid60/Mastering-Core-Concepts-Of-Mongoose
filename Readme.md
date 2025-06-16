@@ -720,3 +720,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 export default app;
 ```
+
+## 17-8 Integrating Typescript with Mongoose And Making User Model
+
+- Follow the interface, model and controller codes
