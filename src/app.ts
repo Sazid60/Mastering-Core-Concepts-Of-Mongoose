@@ -5,8 +5,21 @@ const app: Application = express();
 
 // 1. create schema
 const noteSchema = new Schema({
-  title: String,
-  content: String,
+  title: { type: String, required: true, trim: true },
+  content: { type: String, default: "" },
+  category: {
+    type: String,
+    enum: ["personal", "work", "study", "others"],
+    default: "personal",
+  },
+  pinned: {
+    type: Boolean,
+    default: false,
+  },
+  tags: {
+    label: { type: String, required: true },
+    color: { type: String, default: "gray" },
+  },
 });
 
 // 2. Create Model
@@ -16,8 +29,10 @@ const Note = model("Note", noteSchema);
 app.post("/create-note", async (req: Request, res: Response) => {
   // res.send("Welcome To Todo App");
   const myNote = new Note({
-    title: "Mongoose",
-    content: "I am Learning Mongoose",
+    title: "Node",
+    // tags: {
+    //   label: "database",
+    // },
   });
 
   await myNote.save();
