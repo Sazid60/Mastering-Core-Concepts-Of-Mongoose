@@ -3,20 +3,20 @@ import app from "../../app";
 import express from "express";
 import { User } from "../models/user.model";
 
-export const userRoutes = express.Router();
+export const usersRoutes = express.Router();
 
-userRoutes.post("/create-user", async (req: Request, res: Response) => {
+usersRoutes.post("/create-user", async (req: Request, res: Response) => {
   const body = req.body;
   const user = await User.create(body);
 
   res.status(201).json({
     success: true,
     message: "Users Created Successfully !",
-    user: user,
+    user,
   });
 });
 
-userRoutes.patch("/:userId", async (req: Request, res: Response) => {
+usersRoutes.patch("/:userId", async (req: Request, res: Response) => {
   const userId = req.params.userId;
   const updatedUser = req.body;
   const user = await User.findByIdAndUpdate(userId, updatedUser, { new: true });
@@ -24,21 +24,21 @@ userRoutes.patch("/:userId", async (req: Request, res: Response) => {
   res.status(201).json({
     success: true,
     message: "User Updated Successfully !",
-    user: user,
+    user,
   });
 });
 
-userRoutes.get("/", async (req: Request, res: Response) => {
+usersRoutes.get("/", async (req: Request, res: Response) => {
   const users = await User.find();
 
   res.status(201).json({
     success: true,
     message: "Users Retrieved Successfully !",
-    users: users,
+    users,
   });
 });
 
-userRoutes.get("/:userId", async (req: Request, res: Response) => {
+usersRoutes.get("/:userId", async (req: Request, res: Response) => {
   const userId = req.params.userId;
 
   const user = await User.findById(userId);
@@ -46,17 +46,17 @@ userRoutes.get("/:userId", async (req: Request, res: Response) => {
   res.status(201).json({
     success: true,
     message: "User Retrieved Successfully !",
-    user: user,
+    user,
   });
 });
 
-userRoutes.delete("/:userId", async (req: Request, res: Response) => {
+usersRoutes.delete("/:userId", async (req: Request, res: Response) => {
   const userId = req.params.userId;
   const user = await User.findByIdAndDelete(userId);
 
   res.status(201).json({
     success: true,
     message: "User Deleted Successfully !",
-    user: user,
+    user,
   });
 });
